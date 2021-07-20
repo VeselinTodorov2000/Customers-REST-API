@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Customers-REST-API.iml" filepath="$PROJECT_DIR$/.idea/Customers-REST-API.iml" />
+      <module fileurl="file://$PROJECT_DIR$/restapicustomer/restapicustomer.iml" filepath="$PROJECT_DIR$/restapicustomer/restapicustomer.iml" />
+    </modules>
+  </component>
+</project>
