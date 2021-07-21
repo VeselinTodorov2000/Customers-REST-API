@@ -1,5 +1,7 @@
 package com.rest.restapicustomer.customer;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -13,7 +15,7 @@ public class Customer {
         this(0L, null, null, 0);
     }
 
-    public Customer(Long id, String name, LocalDate creationDate, Integer purchasedItems) {
+    public Customer(@JsonProperty("id")Long id, @JsonProperty("name")String name, @JsonProperty("cd")LocalDate creationDate, @JsonProperty("pi")Integer purchasedItems) {
         this.setId(id);
         this.setName(name);
         this.setCreationDate(creationDate);
