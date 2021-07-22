@@ -51,6 +51,4 @@ public class CustomerDB implements dbProps
             return 0;
         }).orElse(0);
     }
-
-
 }

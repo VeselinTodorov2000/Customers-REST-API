@@ -1,11 +1,10 @@
 package com.rest.restapicustomer.customer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class Customer {
+
     private Long id;
     private String name;
     private LocalDate creationDate;
