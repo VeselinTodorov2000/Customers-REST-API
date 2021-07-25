@@ -1,6 +1,7 @@
 package com.rest.restapicustomer.customer.db;
 
 import com.rest.restapicustomer.customer.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -8,47 +9,36 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository("postgresql")
-public class CustomerDB implements dbProps
+public class CustomerDB
 {
-    private static List<Customer> customers = new ArrayList<>();
+    private dbProps customers;
 
-    @Override
+    @Autowired
+    public CustomerDB(dbProps customers) {
+        this.customers = customers;
+    }
+
     public int insertCustomer(Customer customer) {
-        customers.add(customer);
+        customers.save(customer);
         return 1;
     }
 
-    @Override
     public List<Customer> getCustomers() {
-        return customers;
+        return customers.findAll();
     }
 
-    @Override
     public Optional<Customer> getCustomer(long id) {
-        return customers.stream().filter(customer -> customer.getId().equals(id)).findFirst();
+        return customers.findById(id);
     }
 
-    @Override
     public int deleteCustomerById(long id) {
-        Optional<Customer> exist = getCustomer(id);
-        if(exist.isEmpty())
-        {
-            return 0;
-        }
-        customers.remove(exist.get());
+        customers.deleteById(id);
         return 1;
     }
 
-    @Override
     public int updateCustomerById(long id, Customer customer) {
-        return getCustomer(id).map(c -> {
-            int indexOfCustomer = customers.indexOf(c);
-            if(!(indexOfCustomer < 0))
-            {
-                customers.set(indexOfCustomer, customer);
-                return 1;
-            }
-            return 0;
-        }).orElse(0);
+        customers.deleteById(id);
+        customers.save(customer);
+        return 1;
     }
 }
