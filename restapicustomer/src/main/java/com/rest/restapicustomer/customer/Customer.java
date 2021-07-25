@@ -1,10 +1,28 @@
 package com.rest.restapicustomer.customer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+
+
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table
 public class Customer {
 
+    @Id
+    @SequenceGenerator(
+            name = "customer_seq",
+            sequenceName = "customer_seq",
+            allocationSize = 1
+    )
+
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "customer_seq"
+    )
     private Long id;
     private String name;
     private LocalDate creationDate;
