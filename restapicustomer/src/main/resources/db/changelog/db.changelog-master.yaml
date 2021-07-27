@@ -1,0 +1,28 @@
+databaseChangeLog:
+  -  preConditions:
+  -  runningAs:
+       username:  liquibase
+
+  -  changeSet:
+       id:  1
+       author:  slavovt
+       changes:
+         -  createTable:
+              tableName:  customer
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  false
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  creation_date
+                     type:  date
+                -  column:
+                     name:  name
+                     type:  varchar(255)
+                -  column:
+                     name:  purchased_items
+                     type:  integer
