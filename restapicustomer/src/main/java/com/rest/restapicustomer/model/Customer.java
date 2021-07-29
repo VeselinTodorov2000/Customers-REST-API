@@ -1,4 +1,4 @@
-package com.rest.restapicustomer.customer;
+package com.rest.restapicustomer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Service;

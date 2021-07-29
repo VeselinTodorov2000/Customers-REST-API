@@ -1,11 +1,10 @@
 package com.rest.restapicustomer.customer.controller;
 
-import com.rest.restapicustomer.customer.Customer;
+import com.rest.restapicustomer.model.Customer;
 import com.rest.restapicustomer.customer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -46,10 +45,10 @@ public class CustomerController {
     }
 
     //PUT
-    @PutMapping(path = "/{id}")
-    public int updateCustomerById(@PathVariable("id") long id, @RequestBody Customer customer)
+    @PutMapping
+    public int updateCustomerById(@RequestBody Customer customer)
     {
-        return customerService.updateCustomerById(id, customer);
+        return customerService.updateCustomerById(customer);
     }
 
 

@@ -1,46 +1,59 @@
 package com.rest.restapicustomer.customer.service;
 
-import com.rest.restapicustomer.customer.Customer;
-import com.rest.restapicustomer.customer.db.CustomerDB;
+import com.rest.restapicustomer.model.Customer;
+import com.rest.restapicustomer.customer.repository.CustomerRepository;
+import org.hibernate.Session;
+import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CustomerService {
-
-    private final CustomerDB customerDB;
+    private final CustomerRepository customerDB;
 
     @Autowired
-    public CustomerService(@Qualifier("postgresql")CustomerDB customerDB) {
+    public CustomerService(CustomerRepository customerDB)
+    {
         this.customerDB = customerDB;
     }
 
     public List<Customer> getAllCustomers()
     {
-        return customerDB.getCustomers();
+        return customerDB.findAll();
     }
+
     public Optional<Customer> getCustomerById(long id)
     {
-        return customerDB.getCustomer(id);
+        return customerDB.findById(id);
     }
 
     public int insertNewCustomer(Customer customer)
     {
-        return customerDB.insertCustomer(customer);
+        customerDB.save(customer);
+        return 1;
     }
 
     public int deleteCustomerById(long id)
     {
-        return customerDB.deleteCustomerById(id);
+        customerDB.deleteById(id);
+        return 1;
     }
 
-    public int updateCustomerById(long id, Customer customer)
+    public int updateCustomerById(Customer customer)
     {
-        return customerDB.updateCustomerById(id, customer);
+        Optional<Customer> customerToUpdate = customerDB.findById(customer.getId());
+        if(customerToUpdate.isEmpty())
+        {
+            return 0;
+        }
+        Customer updatedCustomer = customerToUpdate.get();
+        updatedCustomer.setName(customer.getName());
+        updatedCustomer.setCreationDate(customer.getCreationDate());
+        updatedCustomer.setPurchasedItems(customer.getPurchasedItems());
+        customerDB.save(updatedCustomer);
+        return 1;
     }
 }
